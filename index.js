@@ -63,8 +63,8 @@ async function getLastSismo() {
 
 const checkSismoProvince = async (ultimoSismo) => {
     try {
-        const ubicacion = "San Juan";
-//ultimoSismo?.ubicacion
+        const ubicacion = ultimoSismo?.ubicacion;
+
         if (ubicacion) {
             let provincia;
 
@@ -98,11 +98,11 @@ const sendPushNotifications = async (ultimoSismo) => {
     const messages = [];
 
     try {
-        const tokensANotificar = "ExponentPushToken[bCUQHeDo7MXoHUM_33jm1P]";
-        const validTokens = "ExponentPushToken[bCUQHeDo7MXoHUM_33jm1P]";
+        const tokensANotificar = await checkSismoProvince(ultimoSismo);
+        const validTokens = tokensANotificar.filter(token => Expo.isExpoPushToken(token));
         console.log('Tokens válidos a notificar:', validTokens);
 
-       for (const token of validTokens) {
+        for (const token of validTokens) {
             messages.push({
                 to: token,
                 sound: 'default',
@@ -113,7 +113,7 @@ const sendPushNotifications = async (ultimoSismo) => {
             });
         }
 
-        console.log('Mensajes a enviar:', messages); // Agregar registro de mensajes a enviar
+        console.log('Mensajes a enviar:', messages);
 
         const chunks = expo.chunkPushNotifications(messages);
         const tickets = [];
@@ -132,7 +132,6 @@ const sendPushNotifications = async (ultimoSismo) => {
     }
 };
 
-
 // Ejecutar la tarea cada 5 minutos
 cron.schedule('*/1 * * * *', async () => {
     console.log('Ejecutando tarea programada...');
@@ -142,7 +141,7 @@ cron.schedule('*/1 * * * *', async () => {
         if (ultimoSismo.numero !== ultimoSismoNotificado) {
             console.log('Enviando notificaciones push para el último sismo...');
             await sendPushNotifications(ultimoSismo);
-           // ultimoSismoNotificado = ultimoSismo.numero; // Actualizar el último sismo notificado
+            ultimoSismoNotificado = ultimoSismo.numero; // Actualizar el último sismo notificado
         } else {
             console.log('El último sismo ya fue notificado previamente.');
         }
