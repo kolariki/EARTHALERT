@@ -102,12 +102,14 @@ const sendPushNotifications = async (ultimoSismo) => {
         const validTokens = tokensANotificar.filter(token => Expo.isExpoPushToken(token));
         console.log('Tokens válidos a notificar:', validTokens);
 
-        for (const token of validTokens) {
+       for (const token of validTokens) {
             messages.push({
                 to: token,
                 sound: 'default',
+                title: 'Nuevo sismo registrado',
                 body: `Se ha registrado un nuevo sismo en ${ultimoSismo.ubicacion}.`,
                 data: { ultimoSismo },
+                imageUrl: 'https://postimg.cc/94Pwc1Tr/1d4af8ea', // Agrega la URL de la imagen personalizada
             });
         }
 
