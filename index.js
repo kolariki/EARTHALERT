@@ -142,7 +142,7 @@ cron.schedule('*/1 * * * *', async () => {
         if (ultimoSismo.numero !== ultimoSismoNotificado) {
             console.log('Enviando notificaciones push para el último sismo...');
             await sendPushNotifications(ultimoSismo);
-            ultimoSismoNotificado = ultimoSismo.numero; // Actualizar el último sismo notificado
+           // ultimoSismoNotificado = ultimoSismo.numero; // Actualizar el último sismo notificado
         } else {
             console.log('El último sismo ya fue notificado previamente.');
         }
