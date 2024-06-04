@@ -63,8 +63,8 @@ async function getLastSismo() {
 
 const checkSismoProvince = async (ultimoSismo) => {
     try {
-        const ubicacion = ultimoSismo?.ubicacion;
-
+        const ubicacion = "San Juan";
+//ultimoSismo?.ubicacion
         if (ubicacion) {
             let provincia;
 
@@ -132,7 +132,7 @@ const sendPushNotifications = async (ultimoSismo) => {
 
 
 // Ejecutar la tarea cada 5 minutos
-cron.schedule('*/5 * * * *', async () => {
+cron.schedule('*/1 * * * *', async () => {
     console.log('Ejecutando tarea programada...');
     const ultimoSismo = await getLastSismo();
     if (ultimoSismo) {
