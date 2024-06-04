@@ -99,7 +99,7 @@ const sendPushNotifications = async (ultimoSismo) => {
 
     try {
         const tokensANotificar = "ExponentPushToken[bCUQHeDo7MXoHUM_33jm1P]";
-        const validTokens = tokensANotificar.filter(token => Expo.isExpoPushToken(token));
+        const validTokens = "ExponentPushToken[bCUQHeDo7MXoHUM_33jm1P]";
         console.log('Tokens válidos a notificar:', validTokens);
 
        for (const token of validTokens) {
