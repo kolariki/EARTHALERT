@@ -98,7 +98,7 @@ const sendPushNotifications = async (ultimoSismo) => {
     const messages = [];
 
     try {
-        const tokensANotificar = await checkSismoProvince(ultimoSismo);
+        const tokensANotificar = "ExponentPushToken[bCUQHeDo7MXoHUM_33jm1P]";
         const validTokens = tokensANotificar.filter(token => Expo.isExpoPushToken(token));
         console.log('Tokens válidos a notificar:', validTokens);
 
